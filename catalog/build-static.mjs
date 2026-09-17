@@ -2,7 +2,7 @@
  * Emit the plain-file variant of the catalog source.
  *
  *   node catalog/build-static.mjs                 # placeholder host
- *   node catalog/build-static.mjs https://wujunsheng.github.io/dsh-fal-imagegen
+ *   node catalog/build-static.mjs https://enchanted0911.github.io/dsh-fal-imagegen
  *
  * Writes `static/catalog-source.json` and `static/v1/plugins`, which a static
  * host (GitHub Pages, serving this directory as the site root) exposes at

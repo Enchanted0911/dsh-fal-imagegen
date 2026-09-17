@@ -101,7 +101,7 @@ dsh plugin --profile web add dsh-fal-imagegen
 ### 从源码开发（本地链接）
 
 ```sh
-git clone https://github.com/wujunsheng/dsh-fal-imagegen
+git clone https://github.com/Enchanted0911/dsh-fal-imagegen
 cd ~/.dsh/profiles/desktop
 # dependencies 加 "dsh-fal-imagegen": "link:/path/to/dsh-fal-imagegen"
 # dsh.profile.bundles 末尾加 "dsh-fal-imagegen"

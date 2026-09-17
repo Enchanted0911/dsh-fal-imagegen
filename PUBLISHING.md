@@ -13,6 +13,9 @@
       `catalog/worker.js`（Cloudflare Worker）、`catalog/static/`（静态托管形态，由
       `node catalog/build-static.mjs <origin>` 生成）
 - [x] 本地 git 仓库与首个提交（仓库内 `user.email` 设为 GitHub noreply，避免公开工作邮箱）
+- [x] 发布闸门 `tests/fal-publish-test.mjs`（离线校验可发布性：非 private、精确稳定版本、`dsh.bundle.patch` 安全相对路径且存在、
+      exports 与 `dsh.client.platform`、tarball 覆盖 lib/patch/README/LICENSE、发布文件里不含任何凭据形态、目录源与 package.json 一致）
+- [x] 一键发布脚本 `scripts/release.sh`（闸门 → 认证检查 → 发布 → registry 回读校验）
 - [x] README 面向使用者改写：npm 安装 / 源码开发两条路径、目录源说明、本机路径已去除
 
 ## 需要你做的（按顺序）
@@ -43,6 +46,12 @@ chmod 600 ~/.npmrc
 
 ```sh
 cd ~/dsh-fal-imagegen
+./scripts/release.sh        # 先跑离线闸门，再检查认证、发布、从 registry 回读校验
+```
+
+只想手动来：
+
+```sh
 pnpm publish --no-git-checks          # publishConfig 已指定 public + npmjs
 npm view dsh-fal-imagegen version     # 期望输出 0.1.0
 ```
@@ -61,13 +70,12 @@ npm view dsh-fal-imagegen version     # 期望输出 0.1.0
 cat ~/.ssh/id_rsa.pub
 
 cd ~/dsh-fal-imagegen
-git remote add origin git@github.com:<你的用户名>/dsh-fal-imagegen.git
+git remote add origin git@github.com:Enchanted0911/dsh-fal-imagegen.git
 git push -u origin main
 ```
 
-**⚠️ 需要你确认**：`package.json` 现在假设 GitHub 用户名是 `wujunsheng`
-（`https://github.com/wujunsheng/dsh-fal-imagegen`）。如果不是，改这三处：
-`package.json` 的 `homepage` / `repository` / `bugs`，`catalog/entry.mjs` 的两处 URL，然后重新提交。
+GitHub 用户名已确认：**Enchanted0911**。`package.json` 与 `catalog/entry.mjs` 里的仓库 URL
+均已指向 `https://github.com/Enchanted0911/dsh-fal-imagegen`（署名仍写 `wujunsheng`，不含邮箱）。
 
 推送后在仓库页面 **Topics** 加 `dsh-plugin`（`find_dsh_plugin` 工具与 awesome 列表都按这个 topic 搜索）。
 
@@ -88,7 +96,7 @@ curl -s -o /dev/null -w '%{content_type}\n' https://dsh-fal-imagegen-catalog.<ac
 静态托管形态（不想开 Cloudflare）：
 
 ```sh
-node catalog/build-static.mjs https://<你的用户名>.github.io/dsh-fal-imagegen
+node catalog/build-static.mjs https://enchanted0911.github.io/dsh-fal-imagegen
 # 把 catalog/static/ 作为 GitHub Pages 站点根（main 分支的 /docs 或专用分支）
 ```
 
@@ -100,7 +108,7 @@ node catalog/build-static.mjs https://<你的用户名>.github.io/dsh-fal-imageg
 在 awesome-dsh-plugin 这类列表仓库提 PR，加一行：
 
 ```md
-- [dsh-fal-imagegen](https://github.com/<用户名>/dsh-fal-imagegen) — fal.ai 原生文生图/图生图：FAL_KEY 设置卡片 + `fal_generate_image` / `fal_edit_image` Agent 工具，直连 queue.fal.run（Key 鉴权、队列轮询）。
+- [dsh-fal-imagegen](https://github.com/Enchanted0911/dsh-fal-imagegen) — fal.ai 原生文生图/图生图：FAL_KEY 设置卡片 + `fal_generate_image` / `fal_edit_image` Agent 工具，直连 queue.fal.run（Key 鉴权、队列轮询）。
 ```
 
 ## 发布后自检
