@@ -95,6 +95,26 @@ GitHub 用户名已确认：**Enchanted0911**。`package.json` 与 `catalog/entr
 
 ### 4. 目录源（想让人在插件市场里浏览到才需要）
 
+**推荐 Cloudflare Pages 形态**（`.workers.dev` 在部分网络会被 SNI 过滤；`.pages.dev` 通常可达）：
+
+```sh
+cd ~/dsh-fal-imagegen
+npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+# 部署后将输出 https://dsh-fal-imagegen-catalog.pages.dev
+curl -s https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json | head
+curl -s -o /dev/null -w '%{content_type}\n' https://dsh-fal-imagegen-catalog.pages.dev/v1/plugins
+# 期望 application/json
+```
+然后在 DSH「设置 → 插件市场 → 来源」添加 `https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json`。
+
+Worker 形态（国际市场可达时）：
+
+```sh
+cd ~/dsh-fal-imagegen/catalog
+npx wrangler deploy
+```
+
+
 ```sh
 cd ~/dsh-fal-imagegen/catalog
 npx wrangler deploy        # 需要 Cloudflare 账号，免费额度足够

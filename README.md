@@ -142,9 +142,19 @@ DSH 社区市场**没有默认目录源**（官方 v1 契约明确写了没有�
 
 - `catalog/entry.mjs` — 唯一数据源（插件条目 + manifest/page 构造）
 - `catalog/worker.js` — Cloudflare Worker 形态：`/catalog-source.json` 与 `/v1/plugins`
-  （endpoint 路径以 `/v1/plugins` 结尾、同源、`application/json`，这是推荐形态）
-- `catalog/static/` — 静态托管形态（GitHub Pages 等）；静态主机按扩展名给 content-type，
-  无扩展名的 `/v1/plugins` 通常会是 `application/octet-stream`，若市场拒绝就改用 Worker
+  （endpoint 路径以 `/v1/plugins` 结尾、同源、`application/json`）
+- `catalog/pages/` — Cloudflare Pages 形态（`catalog/build-pages.mjs` 生成）：manifest 是
+  静态 JSON，`/v1/plugins` 是 Pages Function（显式 `application/json`）。**`*.workers.dev` 在
+  部分网络（如大陆出口）会被 SNI 过滤**，而 `*.pages.dev` 通常可达，所以这是推荐形态
+- `catalog/static/` — 纯静态托管形态（GitHub Pages 等）；静态主机按扩展名给 content-type，
+  无扩展名的 `/v1/plugins` 会是 `application/octet-stream`，而市场网络边界强制
+  `application/json`（`dsh-community-market/src/network/restricted-http.ts`），**不适用**
+
+部署 Pages 形态后把这个 URL 登记到「设置 → 插件市场 → 来源」：
+
+```
+https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json
+```
 
 部署后把这个 URL 登记到「设置 → 插件市场 → 来源」：
 
