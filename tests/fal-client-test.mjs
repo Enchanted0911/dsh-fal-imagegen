@@ -24,8 +24,9 @@ const check = (condition, message) => {
 
 // ---------------------------------------------------------------- module load
 let definition
-// The card's default language follows the GUI locale; pin it to Chinese so the
-// zh assertions below are deterministic, then exercise the toggle later.
+// The card follows DSH's locale service; without a service it derives the
+// language from the document/browser and defaults to English. Pin the browser
+// language to Chinese for the no-service scenario below.
 try {
   Object.defineProperty(globalThis, 'navigator', {
     value: { language: 'zh-CN', languages: ['zh-CN', 'zh'] },
@@ -44,7 +45,38 @@ const plugin = definition.factory((specifier) => {
   throw new Error(`unexpected require("${specifier}") in the client bundle`)
 })
 check(typeof plugin.apply === 'function' && Array.isArray(plugin.inject), 'factory returns the plugin face')
-check(plugin.inject.join(',') === 'slots,settingsScope', `injects ${plugin.inject.join(', ')}`)
+check(plugin.inject.join(',') === 'slots,settingsScope,locale', `injects ${plugin.inject.join(', ')}`)
+
+// ------------------------------------------------- fake DSH locale service
+// Faithful to the harness LocaleRuntime surface the card binds to: register /
+// bind / subscribe, English as the dictionary fallback for unmatched locales.
+const fakeLocale = {
+  active: 'zh',
+  dicts: new Map(),
+  listeners: new Set(),
+  register(ns, pairs) {
+    let locales = this.dicts.get(ns)
+    if (locales === undefined) { locales = new Map(); this.dicts.set(ns, locales) }
+    for (const [locale, entries] of Object.entries(pairs)) locales.set(locale, entries)
+    return () => {}
+  },
+  bind(ns) {
+    const t = (key, params) => {
+      const locales = this.dicts.get(ns)
+      const dict = locales?.get(this.active) ?? locales?.get('en') ?? {}
+      let value = dict[key]
+      if (value === undefined) return key
+      if (params === undefined || params === null) return value
+      return value.replace(/\{(\w+)\}/g, (match, name) => name in params ? String(params[name]) : match)
+    }
+    return t
+  },
+  subscribe(fn) { this.listeners.add(fn); return () => { this.listeners.delete(fn) } },
+  setLocale(id) {
+    this.active = id
+    for (const fn of [...this.listeners]) fn()
+  },
+}
 
 // ------------------------------------------------------------- apply the half
 const values = {
@@ -72,6 +104,8 @@ let injectedSlot
 plugin.apply({
   get: () => undefined,
   settingsScope: { bind: (spec) => { boundNamespace = spec.namespace; return scope } },
+  locale: fakeLocale,
+  effect: (callback) => { callback(); return () => {} },
   slots: {
     inject: (name, callback) => { injectedSlot = name; callback() },
     register: (options, component) => { registered = { options, component }; return () => {} },
@@ -81,6 +115,7 @@ plugin.apply({
 check(boundNamespace === 'dsh-fal-imagegen', 'binds the dsh-fal-imagegen namespace')
 check(injectedSlot === 'settings.plugin.item', 'registers into settings.plugin.item')
 check(registered.options.key === 'dsh-fal-imagegen', 'keyed entry uses the namespace as its key')
+check(fakeLocale.dicts.get('dsh-fal-imagegen')?.size === 2, 'registers zh + en dictionaries with the locale service')
 
 /** The disclosure button the official chrome renders. */
 const headerOf = (tree) => find(tree, (node) => node.props?.['aria-expanded'] !== undefined)
@@ -166,18 +201,54 @@ check(find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-save').prop
 // The reset control is a labelled text button, not a bare glyph.
 check(find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-defaultImageSize-reset')?.props?.children === '恢复默认', 'reset control uses the official label')
 
-// ------------------------------------------------------------------ bilingual
+// ------------------------------------------- follows DSH's locale, no toggle
+// DSH (the locale service) picks the language; the card only reads it. The
+// zh copy above rendered with fakeLocale.active = 'zh'.
 view = expand()
-check(find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-lang-zh') !== undefined, 'card offers a 中文/English switcher')
-find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-lang-en').props.onClick()
+check(find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-lang-en') === undefined, 'no in-card language switcher: the card follows DSH')
+fakeLocale.setLocale('en')
 view = render(registered.component)
-check(textOf(view.tree).includes('Enable plugin'), 'English copy renders after the toggle')
+check(textOf(view.tree).includes('Enable plugin'), 'card follows DSH when it switches to English')
 check(textOf(view.tree).includes('Default size'), 'english field labels switch with the copy')
 check(find(view.tree, (node) => node.props?.type === 'password')?.props?.placeholder === 'Leave blank to keep the current key', 'english secret placeholder renders')
 check(find(view.tree, (node) => node.props?.type === 'password')?.props?.id !== undefined, 'field ids stay stable across languages')
-find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-lang-zh').props.onClick()
+fakeLocale.setLocale('fr') // a DSH language with no matching dictionary
 view = render(registered.component)
-check(textOf(view.tree).includes('启用插件'), 'toggle returns to Chinese copy')
+check(textOf(view.tree).includes('Enable plugin'), 'an unmatched DSH language falls back to English')
+fakeLocale.setLocale('zh')
+view = render(registered.component)
+check(textOf(view.tree).includes('启用插件'), 'card returns to Chinese copy')
+check(find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-lang-zh') === undefined, 'still no switcher after language changes')
+
+// Dictionary parity: zh and en carry the same key set, so no translation can
+// land on a raw key in either DSH language.
+const { DICTS } = plugin.__testing
+const zhKeys = Object.keys(DICTS.zh).sort()
+const enKeys = Object.keys(DICTS.en).sort()
+check(JSON.stringify(zhKeys) === JSON.stringify(enKeys), `zh/en dictionaries share the key set (${zhKeys.length} keys)`)
+
+// ---------------------------------------------------- fallback without locale
+// A composition without the locale service still renders, deriving the
+// language from the environment and defaulting to English when nothing matches.
+Object.defineProperty(globalThis, 'navigator', {
+  value: { language: 'fr-FR', languages: ['fr-FR'] },
+  configurable: true,
+})
+reset()
+let fallbackCard
+plugin.apply({
+  get: () => undefined,
+  settingsScope: { bind: () => scope },
+  slots: {
+    inject: (_name, callback) => callback(),
+    register: (_options, component) => { fallbackCard = component; return () => {} },
+  },
+})
+let fallbackView = render(fallbackCard)
+headerOf(fallbackView.tree).props.onClick()
+fallbackView = render(fallbackCard)
+check(textOf(fallbackView.tree).includes('Enable plugin'), 'no locale service + non-Chinese environment defaults to English')
+check(textOf(fallbackView.tree).includes('Timeout (seconds)'), 'english field labels render in the fallback')
 
 const { toText, toWrite } = plugin.__testing
 check(toText('boolean', undefined) === true, 'boolean draft defaults to on')

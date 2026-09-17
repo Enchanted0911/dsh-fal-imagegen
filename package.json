@@ -1,7 +1,7 @@
 {
   "name": "dsh-fal-imagegen",
   "version": "0.2.0",
-  "description": "fal.ai native image generation for DSH: a bilingual FAL_KEY settings card plus Agent tools (fal_generate_image async / fal_edit_image / fal_get_image_task / fal_list_image_models) that call queue.fal.run directly — Authorization: Key, queue polling, images[].url.",
+  "description": "fal.ai native image generation for DSH: a FAL_KEY settings card that follows DSH's language (zh/en, English default) plus Agent tools (fal_generate_image async / fal_edit_image / fal_get_image_task / fal_list_image_models) that call queue.fal.run directly — Authorization: Key, queue polling, images[].url.",
   "license": "MIT",
   "author": "wujunsheng",
   "keywords": [
