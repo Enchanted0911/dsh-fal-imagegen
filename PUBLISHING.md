@@ -137,12 +137,44 @@ node catalog/build-static.mjs https://enchanted0911.github.io/dsh-fal-imagegen
 注意：静态主机按扩展名决定 content-type，无扩展名的 `/v1/plugins` 通常会被服务成
 `application/octet-stream`；若市场拒收，就回到 Worker 形态。
 
-### 5. 提交到 awesome 列表（可选）
+### 5. 提交到 awesome 列表（可选，条目已备好）
 
-在 awesome-dsh-plugin 这类列表仓库提 PR，加一行：
+**关于「发到社区的插件市场」的事实**（2026-09-17 查证）：
 
-```md
-- [dsh-fal-imagegen](https://github.com/Enchanted0911/dsh-fal-imagegen) — fal.ai 原生文生图/图生图：FAL_KEY 设置卡片 + `fal_generate_image` / `fal_edit_image` Agent 工具，直连 queue.fal.run（Key 鉴权、队列轮询）。
+- DSH 社区市场**没有默认来源**，也**没有唯一的中央收录处**。插件到达用户有四条通道：
+  1. **自建目录源**（第 4 步）——任何用户添加 manifest URL 即见即装，无需任何批准；
+  2. **awesome-dsh-plugin.com**——官方策展列表，PR 制，条目是一个 YAML 文件；
+  3. **dshfind / DSH 1024Store**——合作目录源，**每日从 GitHub 自动同步**（dshfind 宣称每日；1024Store 有筛选流程），
+     无作者侧提交接口，只能等收录；收录后是否带「可安装」取决于它们是否补上 npm 安装证据；
+  4. `dsh-plugin` topic——仓库发现层的底色（`dsh-find-plugin` 直接搜它）。
+- 本插件条件核验：public 仓库 ✓ · `dsh-plugin` topic ✓ · `package.json` 声明 `dsh.bundle`（bundle.patch）✓ ·
+  npm 已发布且 `repository` 指回本仓库 ✓（可与列表条目自动关联下载量）· 真实代码非空壳 ✓。
+  **唯一硬门槛：仓库创建满 24 小时**（CI 自动查）。本仓库 created 2026-09-17T07:54:53Z，
+  **2026-09-18 07:54Z 之后即可提 PR**。
+
+提 PR（fork https://github.com/awesome-dsh-plugin/awesome-dsh-plugin，加一个文件
+`data/plugins/Enchanted0911__dsh-fal-imagegen.yml`，内容就是仓库里的 `community/awesome-entry.yml`）：
+
+```yaml
+url: https://github.com/Enchanted0911/dsh-fal-imagegen
+name: Enchanted0911/dsh-fal-imagegen
+category: tools
+description:
+  en: 'fal.ai-native image generation for DeepSeek Harness: a FAL_KEY settings card plus the fal_generate_image / fal_edit_image agent tools that call queue.fal.run directly.'
+  zh: 'fal.ai 原生生图插件：FAL_KEY 设置卡片 + fal_generate_image / fal_edit_image Agent 工具，直连 queue.fal.run。'
+```
+
+不要手改它的 README（脚本生成），一个 PR 最多 3 条。想加截图：仓库根放 `screenshots.json` 列 1-8 张本地路径即可。
+
+### 6. 检查合作目录源收录状态
+
+被收录是被动等（每日同步），可用这几条命令复查（无需登录）：
+
+```sh
+# dshfind（14k+ 条）：输出 True 说明条目已被同步
+curl -s https://api.dshfind.com/v1/catalog | python3 -c "import json,sys; print('ENCHANTED0911' in json.dumps(json.load(sys.stdin)['data']).upper())"
+# dsh 1024Store（13k+ 条）：搜索命中即已收录
+curl -s 'https://deepseek1024.com/api/v2/plugins?q=Enchanted0911&limit=5' | python3 -c "import json,sys; import json as j; d=j.load(sys.stdin); print('total:', d['total'])"
 ```
 
 ## 发布后自检
