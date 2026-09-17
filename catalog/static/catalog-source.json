@@ -1,0 +1,28 @@
+{
+  "manifestVersion": "1.0.0",
+  "providerId": "dev.wujunsheng.dsh-fal-imagegen-catalog",
+  "name": "dsh-fal-imagegen 目录源",
+  "description": "个人维护的 DSH 插件目录源，目前收录 dsh-fal-imagegen（fal.ai 原生插件）。",
+  "homepage": "https://github.com/wujunsheng/dsh-fal-imagegen",
+  "attribution": {
+    "name": "wujunsheng",
+    "url": "https://github.com/wujunsheng"
+  },
+  "transport": {
+    "kind": "https-json",
+    "endpoint": "https://REPLACE-WITH-YOUR-STATIC-HOST/v1/plugins",
+    "method": "GET"
+  },
+  "query": {
+    "supported": [
+      "q",
+      "category",
+      "cursor",
+      "limit"
+    ],
+    "defaultLimit": 50,
+    "maxLimit": 50,
+    "sorts": []
+  },
+  "updatedAt": "2026-09-17T07:27:51Z"
+}

@@ -1,0 +1,7 @@
+# dsh-fal-imagegen bundle patch: inserts the plugin row into the web profile
+# roster. The row is a bare plugin by package name; the node half (exports ".")
+# runs in the host process and owns the fal settings section, the fal.ai client
+# and the Agent image tools. There is no browser half yet.
+- insert:
+    - id: fal-imagegen
+      name: 'dsh-fal-imagegen'

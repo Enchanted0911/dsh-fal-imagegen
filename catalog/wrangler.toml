@@ -1,0 +1,6 @@
+# Cloudflare Worker configuration for catalog/worker.js.
+# `npx wrangler deploy` publishes it; the URL it prints is the manifest URL.
+name = "dsh-fal-imagegen-catalog"
+main = "worker.js"
+compatibility_date = "2026-09-01"
+workers_dev = true
