@@ -17,14 +17,14 @@ export const PLUGIN = {
   name: 'dsh-fal-imagegen',
   displayName: 'fal 生图（fal.ai 原生）',
   summary: 'fal.ai 原生生图：FAL_KEY 设置卡片 + Agent 工具 fal_generate_image / fal_edit_image / fal_list_image_models，直连 queue.fal.run（Key 鉴权、队列轮询），默认模型 openai/gpt-image-2.5/flare。',
-  homepage: 'https://github.com/wujunsheng/dsh-fal-imagegen',
+  homepage: 'https://github.com/Enchanted0911/dsh-fal-imagegen',
   latestVersion: '0.1.0',
   license: 'MIT',
   categories: ['image-generation', 'agent-tools', 'interface'],
   keywords: ['fal', 'fal.ai', 'text-to-image', 'image-to-image', 'gpt-image-2.5', 'nano-banana', 'flux'],
-  repository: { url: 'https://github.com/wujunsheng/dsh-fal-imagegen' },
+  repository: { url: 'https://github.com/Enchanted0911/dsh-fal-imagegen' },
   package: { registry: 'npm', name: 'dsh-fal-imagegen' },
-  publisher: { name: 'wujunsheng', url: 'https://github.com/wujunsheng' },
+  publisher: { name: 'wujunsheng', url: 'https://github.com/Enchanted0911' },
   capabilities: {
     required: ['tools', 'settings'],
     optional: ['attachments', 'systemPrompt'],
@@ -53,7 +53,7 @@ export function buildManifest(origin, now = new Date()) {
     homepage: PLUGIN.homepage,
     attribution: {
       name: 'wujunsheng',
-      url: 'https://github.com/wujunsheng',
+      url: 'https://github.com/Enchanted0911',
     },
     transport: {
       kind: 'https-json',
