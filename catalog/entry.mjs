@@ -16,7 +16,7 @@ export const PLUGIN = {
   id: 'fal-imagegen',
   name: 'dsh-fal-imagegen',
   displayName: 'fal 生图（fal.ai 原生）',
-  summary: 'fal.ai 原生生图：中英双语 FAL_KEY 设置卡片 + Agent 工具 fal_generate_image（异步提交）/ fal_get_image_task（后台任务查询）/ fal_edit_image / fal_list_image_models，直连 queue.fal.run（Key 鉴权、队列轮询），默认模型 openai/gpt-image-2.5/flare。',
+  summary: 'fal.ai 原生生图：设置卡片跟随 DSH 语言（中文/英文，默认英文）+ Agent 工具 fal_generate_image（异步提交）/ fal_get_image_task（后台任务查询）/ fal_edit_image / fal_list_image_models，直连 queue.fal.run（Key 鉴权、队列轮询），默认模型 openai/gpt-image-2.5/flare。',
   homepage: 'https://github.com/Enchanted0911/dsh-fal-imagegen',
   latestVersion: '0.2.0',
   license: 'MIT',
