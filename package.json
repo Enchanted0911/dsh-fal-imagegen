@@ -1,6 +1,6 @@
 {
   "name": "dsh-fal-imagegen",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "fal.ai native image generation for DSH: a FAL_KEY settings card plus Agent tools (fal_generate_image / fal_edit_image / fal_list_image_models) that call queue.fal.run directly — Authorization: Key, queue polling, images[].url.",
   "license": "MIT",
   "author": "wujunsheng",
@@ -34,7 +34,8 @@
     "lib",
     "cordis.patch.yml",
     "README.md",
-    "LICENSE"
+    "LICENSE",
+    "README.zh.md"
   ],
   "publishConfig": {
     "access": "public",
