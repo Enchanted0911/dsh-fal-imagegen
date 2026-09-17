@@ -1,21 +1,36 @@
 # dsh-fal-imagegen
 
-面向 DeepSeek Harness (DSH) 的 [fal.ai](https://fal.ai) 原生生图插件：一张「fal 生图」设置卡片 + 三个 Agent 工具，端到端直连 fal 协议，中间不经过任何 OpenAI 兼容网关。
+**语言：** [English](README.md) · **中文** · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+
+面向 DeepSeek Harness (DSH) 的 [fal.ai](https://fal.ai) 原生生图插件：一张中英双语「fal 生图」设置卡片 + 四个 Agent 工具，端到端直连 fal 协议，中间不经过任何 OpenAI 兼容网关。
 
 ## 能力
 
 - **原生 fal 协议** — `POST https://queue.fal.run/<slug>`，`Authorization: Key <key_id>:<key_secret>`，轮询队列票据（`status_url` → `response_url`），消费 `{ images: [{ url, width, height }] }`。
-- **设置卡片** — 「设置 → 插件 → 插件配置」里的 **fal 生图**：总开关、FAL_KEY、默认文生图/图生图端点、默认尺寸、质量档、输出格式、超时、输出目录、系统提示公告开关。卡片外观与交互对齐内置插件卡片（默认折叠、未保存标记、字段级恢复默认、保存/放弃）。
+- **异步生图优先** — `fal_generate_image` 把任务提交进 fal 队列后立即返回 `task_id`；后台收集器自动跑完并落地成图片，`fal_get_image_task` 随时查询进度、取回成品（单次可最多等 120 秒）。想回到旧式同步等待，传 `wait=true` 即可。
+- **设置卡片，中英双语** — 「设置 → 插件 → 插件配置」里的 **fal 生图**：总开关、FAL_KEY、默认文生图/图生图端点、默认尺寸、质量档、输出格式、超时、输出目录、系统提示公告开关。卡片外观与交互对齐内置插件卡片（默认折叠、未保存标记、字段级恢复默认、保存/放弃），并自动跟随界面语言——卡片内带「中文 / English」切换，记忆你的选择。
 - **Agent 工具**：
 
   | 工具 | 作用 |
   | --- | --- |
-  | `fal_generate_image` | 文生图：`prompt` / `model` / `size` / `quality` / `count` |
-  | `fal_edit_image` | 图生图：`prompt` + 参考图（附件引用，或本机 `image_path`） |
+  | `fal_generate_image` | 文生图，默认异步：`prompt` / `model` / `size` / `quality` / `count` / `wait` → 返回 `task_id` |
+  | `fal_get_image_task` | 后台任务查询：进度、等待、取回成品（按 `task_id` 或 fal `request_id`；都不传则列出近期任务） |
+  | `fal_edit_image` | 图生图，同步返回：`prompt` + 参考图（附件引用，或本机 `image_path`） |
   | `fal_list_image_models` | 列出内置别名、当前默认值与输出目录 |
 
 - **产出可复用** — 每张图同时（1）作为附件显示在工具调用旁（模型侧只收到 attachment 引用与路径文本，纯文本模型也能用）；（2）写入本地 `<DSH_HOME>/fal-imagegen`；返回的 `path` 可直接交给 `fal_edit_image` 的 `image_path` 做二次编辑。
 - **别名与 slug 全部核验** — 内置别名逐个对照 fal 官方端点 schema 验证过；未知 slug（含 `/`）原样透传；拿文生图端点到图生图上会直接报错，而不是发无效请求。
+
+## 异步生图流程
+
+`fal_generate_image` 不再让 Agent 卡在 fal 队列上：
+
+1. 工具把任务提交进队列，fal 一接受就返回 `{ status: "queued", task_id, request_id, message, next_action, images: [] }`。
+2. 后台收集器自动轮询队列、下载图片、存成附件并复制到输出目录——全程不占对话。
+3. `fal_get_image_task`（必填 `task_id`，或 fal 的 `request_id`）返回 `queued / running / completed / failed`；带 `wait_seconds`（0–120）可以阻塞等待这么久；`completed` 时结果带完整 `images[]`（`attachment_id` + 本地 `path`），图片直接渲染在工具调用旁。
+4. 不传 id 时列出近期任务（`task_id`、状态、模型、图片数）。
+
+说明：任务记录存在当前宿主进程内（保留约 6 小时、最多 64 条）；后台等待超时的任务在下一次查询时会自动续查；`fal_edit_image` 保持同步，因为它的结果通常马上要作为下一步的输入。
 
 ## 内置别名
 
@@ -28,8 +43,6 @@
 | `nano-banana-2` | `fal-ai/nano-banana-2` | `fal-ai/nano-banana-2/edit` | `aspect_ratio` | 省略 |
 | `gemini-25-flash-image` | `fal-ai/gemini-25-flash-image` | `fal-ai/gemini-25-flash-image/edit` | `aspect_ratio` | 省略 |
 | `flux-2-flash` | `fal-ai/flux-2/flash` | `fal-ai/flux-2/flash/edit` | `image_size` | 省略 |
-
-> 命名说明：fal 上**没有** `gpt image 2.5 flash`。GPT Image 2.5 在 fal 只有两个变体：`flare`（官方定位「面向多数应用的默认档：快、质量高」）和 `sunburst`（细节优先、更慢更贵）。本插件默认用 `flare`，并额外接受 `gpt-image-2.5-flash` 别名。
 
 ## 配置
 
@@ -52,7 +65,7 @@
 
 ### 从 npm 装（推荐，已上架）
 
-`dsh-fal-imagegen@0.1.0` 已发布到 npm：
+`dsh-fal-imagegen@0.2.0` 已发布到 npm：
 
 ```sh
 # 由 dsh CLI 管理的 profile（web / headless / 自定义）：
@@ -89,9 +102,10 @@ git clone https://github.com/Enchanted0911/dsh-fal-imagegen
 
 ```sh
 node tests/fal-manifest-test.mjs             # 清单契约：patch 行、exports、dsh.client、wrapper id
-node tests/fal-client-test.mjs               # 浏览器半：槽位注册、卡片状态、保存写出的 ops
+node tests/fal-client-test.mjs               # 浏览器半：槽位注册、卡片状态、保存写出、双语切换
 node tests/fal-settings-roundtrip-test.mjs   # 两半接缝：卡片写 → 宿主读、reset 回退、开关门控
 node tests/fal-schema-test.mjs               # 工具参数与输出 schema
+node tests/fal-tasks-test.mjs                # 异步路径：提交 → 后台完成 → 查询，用假的 fal 队列
 ```
 
 真调用测试（消耗 fal 额度）：
@@ -116,7 +130,5 @@ npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
 
 ## 已知限制
 
-- 设置卡片文案目前只有中文。
-- 一次工具调用是同步等待的（内部轮询 fal 队列），预算由 `timeoutSeconds` 控制；没有后台任务查询接口。
 - 只文档化 `aspect_ratio` 的端点（nano-banana / gemini）会把显式像素尺寸降级成 `auto`。
 - 生成消耗 fal 额度；图片内容由 fal 侧模型产出。

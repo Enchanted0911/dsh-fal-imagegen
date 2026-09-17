@@ -6,7 +6,7 @@
 
 - [x] `package.json` 可发布：去掉 `private`、补 `description` / `keywords`（含 `dsh-plugin`）/ `author` /
       `repository` / `homepage` / `bugs` / `publishConfig: { access: public, registry: npmjs }`、
-      `files` 只打包 `lib` + `cordis.patch.yml` + `README.md` + `LICENSE`
+      `files` 打包 `lib` + `cordis.patch.yml` + `README.md`（及 6 个语言版本 `README.zh/es/ar/fr/ja/ko.md`）+ `LICENSE`
 - [x] `LICENSE`（MIT，署名 wujunsheng，不含邮箱）
 - [x] `.gitignore`
 - [x] 符合 dsh-community-market v1 契约的目录源：`catalog/entry.mjs`（唯一数据源）、
@@ -53,7 +53,7 @@ cd ~/dsh-fal-imagegen
 
 ```sh
 pnpm publish --no-git-checks          # publishConfig 已指定 public + npmjs
-npm view dsh-fal-imagegen version     # 期望输出 0.1.0
+npm view dsh-fal-imagegen version     # 期望输出 0.2.0
 ```
 
 包名 `dsh-fal-imagegen` 目前**未被占用**（2026-09-17 查 registry 返回 404）。若你想放到 scope 下
