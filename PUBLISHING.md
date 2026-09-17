@@ -59,6 +59,20 @@ npm view dsh-fal-imagegen version     # 期望输出 0.1.0
 包名 `dsh-fal-imagegen` 目前**未被占用**（2026-09-17 查 registry 返回 404）。若你想放到 scope 下
 （`@yourname/dsh-fal-imagegen`），把 `package.json` 的 `name` 改掉并保证 `publishConfig.access: public`。
 
+### 2.1 若 publish 报 E403（2FA）
+
+```
+[E403] 403 Forbidden - PUT https://registry.npmjs.org/<pkg>
+Two-factor authentication or granular access token with bypass 2fa enabled is required to publish packages.
+```
+
+这是 npm 账户开了 2FA、而 `~/.npmrc` 里的 token 没有「绕过 2FA」权限。二选一：
+
+- **推荐**：npmjs.com → Access Tokens → Generate New Token → **Granular Access Token**，
+  Permissions 选 Read and write，Packages 选 **All packages**（包尚未存在时选不了具体包），
+  并**勾选 Bypass two-factor authentication (2FA)**；生成后替换 `~/.npmrc` 里那一行 token。
+- 或用一次性验证码：`pnpm publish --no-git-checks --otp=<6 位动态码>`（30 秒内有效）。
+
 ### 3. 建 GitHub 仓库并推送
 
 本机 `gh` 未安装，`ssh -T git@github.com` 返回 `Permission denied (publickey)`，也就是说现有 SSH key
