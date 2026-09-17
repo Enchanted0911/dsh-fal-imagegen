@@ -1,21 +1,36 @@
 # dsh-fal-imagegen
 
-Native [fal.ai](https://fal.ai) image generation for DeepSeek Harness (DSH): a settings card for your FAL_KEY and defaults, plus agent tools that speak fal's protocol end-to-end — no OpenAI-compatible gateway in between.
+**Languages:** **English** · [中文](README.zh.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+
+Native [fal.ai](https://fal.ai) image generation for DeepSeek Harness (DSH): a bilingual settings card for your FAL_KEY and defaults, plus agent tools that speak fal's protocol end-to-end — no OpenAI-compatible gateway in between.
 
 ## Features
 
 - **Native fal protocol** — `POST https://queue.fal.run/<slug>` with `Authorization: Key <key_id>:<key_secret>`, poll the queue ticket (`status_url` → `response_url`), consume `{ images: [{ url, width, height }] }`.
-- **Settings card** — "fal 生图" under Settings → Plugins: master switch, FAL_KEY, default text-to-image / image-to-image endpoints, default size, quality, output format, timeout, output directory, and a system-prompt announcement toggle. The card matches the built-in plugin card chrome (collapsible, dirty-state tag, per-field reset, save/discard).
+- **Async-first generation** — `fal_generate_image` submits the job to the fal queue and returns immediately with a `task_id`; a background collector finishes it, and `fal_get_image_task` polls progress and hands you the finished images (optionally waiting up to 120 s per query). Pass `wait=true` if you prefer the old blocking behaviour.
+- **Settings card, bilingual** — "fal 生图" / "fal imagegen" under Settings → Plugins: master switch, FAL_KEY, default text-to-image / image-to-image endpoints, default size, quality, output format, timeout, output directory, and a system-prompt announcement toggle. The card matches the built-in plugin card chrome (collapsible, dirty-state tag, per-field reset, save/discard) and auto-detects the GUI language — a 中文 / English switcher in the card, remembered across reloads.
 - **Agent tools**:
 
   | tool | purpose |
   | --- | --- |
-  | `fal_generate_image` | text-to-image: `prompt` / `model` / `size` / `quality` / `count` |
-  | `fal_edit_image` | image-to-image: `prompt` + a source (an attachment reference, or an `image_path` on disk) |
+  | `fal_generate_image` | text-to-image, async by default: `prompt` / `model` / `size` / `quality` / `count` / `wait` → returns a `task_id` |
+  | `fal_get_image_task` | background-task query: progress, waiting, finished images (by `task_id` or fal `request_id`; omit both to list recent tasks) |
+  | `fal_edit_image` | image-to-image, synchronous: `prompt` + a source (an attachment reference, or an `image_path` on disk) |
   | `fal_list_image_models` | list the built-in aliases, current defaults, and the output directory |
 
 - **Results you can reuse** — every image is attached to the conversation (renders beside the tool call) **and** written to disk under `<DSH_HOME>/fal-imagegen`; the returned `path` goes straight back into `fal_edit_image`'s `image_path`.
 - **Model aliases with verified slugs** — every built-in alias was checked against fal's own endpoint schema; unknown slugs containing "/" are passed through verbatim, and a clear text-to-image slug is refused for an edit instead of sending a broken request.
+
+## Async generation
+
+`fal_generate_image` no longer blocks an agent turn on fal's queue:
+
+1. The tool submits the job and answers `{ status: "queued", task_id, request_id, message, next_action, images: [] }` as soon as fal accepts it.
+2. A detached collector polls the queue, downloads the images, saves them as attachments, and copies them to the output directory — all in the background.
+3. `fal_get_image_task` (`task_id` required, or fal's `request_id`) reports `queued / running / completed / failed`. With `wait_seconds` (0–120) it blocks up to that long; once `completed`, the query result carries the full `images[]` with `attachment_id` + local `path` and renders the images beside the tool call.
+4. Without an id the tool lists recent tasks instead (`task_id`, `status`, model, image count).
+
+Notes: task records live in the current host process (kept ~6 h, newest 64); a task whose background wait timed out is retried automatically on its next query; `fal_edit_image` stays synchronous because its result is usually needed as the next step's input.
 
 ## Model aliases
 
@@ -28,8 +43,6 @@ Native [fal.ai](https://fal.ai) image generation for DeepSeek Harness (DSH): a s
 | `nano-banana-2` | `fal-ai/nano-banana-2` | `fal-ai/nano-banana-2/edit` | `aspect_ratio` | omitted |
 | `gemini-25-flash-image` | `fal-ai/gemini-25-flash-image` | `fal-ai/gemini-25-flash-image/edit` | `aspect_ratio` | omitted |
 | `flux-2-flash` | `fal-ai/flux-2/flash` | `fal-ai/flux-2/flash/edit` | `image_size` | omitted |
-
-> Naming note: fal does not host a "gpt image 2.5 flash". GPT Image 2.5 has two tiers on fal: `flare` (the default fast tier) and `sunburst` (detail-first, slower and pricier). This plugin defaults to `flare` and additionally accepts `gpt-image-2.5-flash` as an alias.
 
 ## Configuration
 
@@ -52,7 +65,7 @@ The card edits the same settings as the `dsh-fal-imagegen:` section of `~/.dsh/s
 
 ### npm (recommended)
 
-`dsh-fal-imagegen@0.1.0` is published:
+`dsh-fal-imagegen@0.2.0` is published:
 
 ```sh
 # CLI-managed profiles (web / headless / custom):
@@ -85,9 +98,10 @@ Offline tests (no key, no network):
 
 ```sh
 node tests/fal-manifest-test.mjs             # manifest contract: patch row, exports, dsh.client, wrapper id
-node tests/fal-client-test.mjs               # browser half: slot registration, card states, save ops
+node tests/fal-client-test.mjs               # browser half: slot registration, card states, save ops, bilingual toggle
 node tests/fal-settings-roundtrip-test.mjs   # both halves: card writes → host reads, reset fallback, toggles
 node tests/fal-schema-test.mjs               # tool parameter and output schemas
+node tests/fal-tasks-test.mjs                # async path: submit → background finish → query, with a fake fal queue
 ```
 
 Live tests (spend fal credits):
@@ -110,7 +124,5 @@ npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
 
 ## Limitations
 
-- The settings card copy is Chinese-only for now.
-- A tool call waits synchronously (internal queue polling) within the `timeoutSeconds` budget; there is no background-task query API.
 - Endpoints that document `aspect_ratio` (nano-banana / gemini) downgrade explicit pixel sizes to `auto`.
 - Generation spends fal credits, and image content is produced by the fal-hosted model.

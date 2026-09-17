@@ -1,7 +1,7 @@
 {
   "name": "dsh-fal-imagegen",
-  "version": "0.1.1",
-  "description": "fal.ai native image generation for DSH: a FAL_KEY settings card plus Agent tools (fal_generate_image / fal_edit_image / fal_list_image_models) that call queue.fal.run directly — Authorization: Key, queue polling, images[].url.",
+  "version": "0.2.0",
+  "description": "fal.ai native image generation for DSH: a bilingual FAL_KEY settings card plus Agent tools (fal_generate_image async / fal_edit_image / fal_get_image_task / fal_list_image_models) that call queue.fal.run directly — Authorization: Key, queue polling, images[].url.",
   "license": "MIT",
   "author": "wujunsheng",
   "keywords": [
@@ -35,14 +35,19 @@
     "cordis.patch.yml",
     "README.md",
     "LICENSE",
-    "README.zh.md"
+    "README.zh.md",
+    "README.es.md",
+    "README.ar.md",
+    "README.fr.md",
+    "README.ja.md",
+    "README.ko.md"
   ],
   "publishConfig": {
     "access": "public",
     "registry": "https://registry.npmjs.org"
   },
   "scripts": {
-    "test": "node tests/fal-publish-test.mjs && node tests/fal-manifest-test.mjs && node tests/fal-client-test.mjs && node tests/fal-settings-roundtrip-test.mjs && node tests/fal-schema-test.mjs",
+    "test": "node tests/fal-publish-test.mjs && node tests/fal-manifest-test.mjs && node tests/fal-client-test.mjs && node tests/fal-settings-roundtrip-test.mjs && node tests/fal-schema-test.mjs && node tests/fal-tasks-test.mjs",
     "catalog:static": "node catalog/build-static.mjs"
   },
   "peerDependencies": {

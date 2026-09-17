@@ -24,6 +24,14 @@ const check = (condition, message) => {
 
 // ---------------------------------------------------------------- module load
 let definition
+// The card's default language follows the GUI locale; pin it to Chinese so the
+// zh assertions below are deterministic, then exercise the toggle later.
+try {
+  Object.defineProperty(globalThis, 'navigator', {
+    value: { language: 'zh-CN', languages: ['zh-CN', 'zh'] },
+    configurable: true,
+  })
+} catch { /* Node versions without a settable navigator keep the default */ }
 globalThis.window = { __ModuleLoader__: { load: (def) => { definition = def } } }
 await import(join(here, '..', 'lib', 'client.js'))
 
@@ -157,6 +165,19 @@ check(find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-save').prop
 
 // The reset control is a labelled text button, not a bare glyph.
 check(find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-defaultImageSize-reset')?.props?.children === '恢复默认', 'reset control uses the official label')
+
+// ------------------------------------------------------------------ bilingual
+view = expand()
+check(find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-lang-zh') !== undefined, 'card offers a 中文/English switcher')
+find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-lang-en').props.onClick()
+view = render(registered.component)
+check(textOf(view.tree).includes('Enable plugin'), 'English copy renders after the toggle')
+check(textOf(view.tree).includes('Default size'), 'english field labels switch with the copy')
+check(find(view.tree, (node) => node.props?.type === 'password')?.props?.placeholder === 'Leave blank to keep the current key', 'english secret placeholder renders')
+check(find(view.tree, (node) => node.props?.type === 'password')?.props?.id !== undefined, 'field ids stay stable across languages')
+find(view.tree, (node) => node.props?.id === 'dsh-fal-imagegen-lang-zh').props.onClick()
+view = render(registered.component)
+check(textOf(view.tree).includes('启用插件'), 'toggle returns to Chinese copy')
 
 const { toText, toWrite } = plugin.__testing
 check(toText('boolean', undefined) === true, 'boolean draft defaults to on')

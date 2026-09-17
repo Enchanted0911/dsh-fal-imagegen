@@ -3,7 +3,8 @@
  *
  * Fakes the host seams the plugin injects (tools / attachments /
  * systemPrompt / settings) and drives the real tools end to end:
- *   fal_generate_image  → real fal.ai call → attachment + disk file
+ *   fal_generate_image  → async submit → fal_get_image_task until completed
+ *                       → attachment + disk file (+ the wait=true sync path)
  *   fal_edit_image      → reuses the produced file by path
  *   fal_list_image_models
  * Also checks the failure path with a missing key.
@@ -95,17 +96,42 @@ console.log('\n== fal_list_image_models ==')
 const catalogue = await tools.get('fal_list_image_models').execute({}, { signal: undefined })
 console.log('key_configured:', catalogue.configured.key_configured, '| default t2i:', catalogue.configured.default_text_to_image, '| presets:', catalogue.presets.length)
 
-console.log('\n== fal_generate_image ==')
-const generated = await tools.get('fal_generate_image').execute(
+console.log('\n== fal_generate_image (async submit) ==')
+const submitted = await tools.get('fal_generate_image').execute(
   { prompt: 'a small orange cat sleeping on a wooden desk, soft window light, photo', size: '1:1', count: 1 },
   { signal: undefined },
 )
-console.log('status:', generated.status, '| model:', generated.model, '| images:', generated.images.length)
+console.log('status:', submitted.status, '| model:', submitted.model, '| images:', submitted.images.length, '| task_id:', submitted.task_id)
+if (submitted.status !== 'queued' || submitted.images.length !== 0) {
+  throw new Error('expected the async submit to answer queued with no images')
+}
+
+console.log('\n== fal_get_image_task (poll to completion) ==')
+const queryTool = tools.get('fal_get_image_task')
+let generated = null
+for (let attempt = 0; attempt < 40; attempt += 1) {
+  const answer = await queryTool.execute({ task_id: submitted.task_id, wait_seconds: 5 }, { signal: undefined })
+  console.log('  poll:', answer.status, '| images:', answer.images.length, '| queue:', answer.queue_position ?? '-')
+  if (answer.status === 'completed') { generated = answer; break }
+  if (answer.status === 'failed') throw new Error(`task failed: ${answer.error}`)
+}
+if (generated === null) throw new Error('generate task did not complete in time')
 const first = generated.images[0]
 console.log('ref:', JSON.stringify({ ...first, path: first.path }))
 if (!existsSync(first.path)) throw new Error(`expected a file at ${first.path}`)
 const onDisk = readFileSync(first.path)
 console.log('disk file:', statSync(first.path).size, 'bytes | magic:', detectMime(onDisk), '| dims:', JSON.stringify(imageDimensions(onDisk)))
+
+// The sync escape hatch (wait=true) still yields the old blocking behaviour.
+console.log('\n== fal_generate_image (wait=true, sync) ==')
+const syncGenerated = await tools.get('fal_generate_image').execute(
+  { prompt: 'a green leaf on a stone, macro, photo', size: '1:1', count: 1, wait: true },
+  { signal: undefined },
+)
+console.log('status:', syncGenerated.status, '| images:', syncGenerated.images.length)
+if (syncGenerated.status !== 'completed' || syncGenerated.images.length !== 1) {
+  throw new Error(`expected the sync path to return its images (${syncGenerated.status})`)
+}
 
 console.log('\n== presentation projection ==')
 const tool = tools.get('fal_generate_image')
