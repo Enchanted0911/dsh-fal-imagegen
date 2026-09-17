@@ -98,6 +98,15 @@ dsh plugin --profile web add dsh-fal-imagegen
 安装完在「设置 → 插件 → 插件配置」展开「fal 生图」卡片填 FAL_KEY，或直接写
 `~/.dsh/settings.yaml` 的 `dsh-fal-imagegen:` 段。
 
+### 从 git 装（npm 上架前也能用）
+
+```sh
+dsh plugin --profile web add github:Enchanted0911/dsh-fal-imagegen
+```
+
+实测：pnpm 会拉取仓库并装出 `dsh-fal-imagegen@0.1.0`，`dsh.bundle.patch` 与 `dsh.client` 声明完好。
+版本对齐按 git 引用（`#<tag|commit>` 可固定版本）。
+
 ### 从源码开发（本地链接）
 
 ```sh
