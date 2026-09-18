@@ -1,8 +1,40 @@
-# dsh-fal-imagegen
+# 🎨 dsh-fal-imagegen — Generación de imágenes nativa con fal.ai para DeepSeek Harness, v0.2.0
 
-**Idiomas:** [English](README.md) · [中文](README.zh.md) · **Español** · [العربية](README.ar.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+<p align="center">
+  <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm version" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/stars/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&logo=github&label=Stars" alt="Stars" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=License" alt="License: MIT" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/last-commit/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=Last%20commit" alt="Last commit" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/badge/DSH%20Plugin-🎨%20imagegen-10B981?style=for-the-badge&logoColor=white" alt="DSH plugin" /></a>
+</p>
 
-Generación de imágenes nativa con [fal.ai](https://fal.ai) para DeepSeek Harness (DSH): una tarjeta de configuración bilingüe para tu FAL_KEY y los valores predeterminados, más herramientas de agente que hablan el protocolo de fal de punta a punta — sin pasarelas compatibles con OpenAI en medio.
+<p align="center">
+  <b>Instalación en una línea</b>:
+  <code>dsh plugin --profile web add dsh-fal-imagegen</code>
+</p>
+
+<p align="center">
+  <b>Leer en:</b>
+  <a href="README.md">English</a> ·
+  <a href="README.zh.md">简体中文</a> ·
+  <a href="README.ar.md">العربية</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.ja.md">日本語</a> ·
+  <a href="README.ko.md">한국어</a>
+</p>
+
+Generación de imágenes nativa con [fal.ai](https://fal.ai) para DeepSeek Harness (DSH): una tarjeta de configuración que sigue el idioma de DSH, más herramientas de agente que hablan el protocolo de fal de punta a punta — sin pasarelas compatibles con OpenAI en medio.
+
+## Tabla de contenido
+
+- [Características](#características)
+- [Generación asíncrona](#generación-asíncrona)
+- [Alias de modelos](#alias-de-modelos)
+- [Configuración](#configuración)
+- [Instalación](#instalación)
+- [Desarrollo](#desarrollo)
+- [Fuente del catálogo del mercado](#fuente-del-catálogo-del-mercado)
+- [Limitaciones](#limitaciones)
 
 ## Características
 

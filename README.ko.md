@@ -1,8 +1,40 @@
-# dsh-fal-imagegen
+# 🎨 dsh-fal-imagegen — DeepSeek Harness용 fal.ai 네이티브 이미지 생성 플러그인, v0.2.0
 
-**언어:** [English](README.md) · [中文](README.zh.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [日本語](README.ja.md) · **한국어**
+<p align="center">
+  <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm version" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/stars/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&logo=github&label=Stars" alt="Stars" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=License" alt="License: MIT" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/last-commit/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=Last%20commit" alt="Last commit" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/badge/DSH%20Plugin-🎨%20imagegen-10B981?style=for-the-badge&logoColor=white" alt="DSH plugin" /></a>
+</p>
 
-DeepSeek Harness(DSH)용 [fal.ai](https://fal.ai) 네이티브 이미지 생성 플러그인: FAL_KEY와 기본값을 설정하는 이중 언어 설정 카드와, fal 프로토콜을 처음부터 끝까지 직접 사용하는 에이전트 도구 — OpenAI 호환 게이트웨이를 거치지 않습니다.
+<p align="center">
+  <b>한 줄 설치</b>:
+  <code>dsh plugin --profile web add dsh-fal-imagegen</code>
+</p>
+
+<p align="center">
+  <b>다른 언어:</b>
+  <a href="README.md">English</a> ·
+  <a href="README.zh.md">简体中文</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.ar.md">العربية</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.ja.md">日本語</a>
+</p>
+
+DeepSeek Harness(DSH)용 [fal.ai](https://fal.ai) 네이티브 이미지 생성 플러그인: DSH 언어를 따르는 설정 카드와, fal 프로토콜을 처음부터 끝까지 직접 사용하는 에이전트 도구 — OpenAI 호환 게이트웨이를 거치지 않습니다.
+
+## 목차
+
+- [기능](#기능)
+- [비동기 생성 흐름](#비동기-생성-흐름)
+- [모델 별칭](#모델-별칭)
+- [설정](#설정)
+- [설치](#설치)
+- [개발](#개발)
+- [마켓플레이스 카탈로그 소스](#마켓플레이스-카탈로그-소스)
+- [알려진 제한 사항](#알려진-제한-사항)
 
 ## 기능
 

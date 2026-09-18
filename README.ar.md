@@ -1,8 +1,40 @@
-# dsh-fal-imagegen
+# 🎨 dsh-fal-imagegen — توليد صور أصلي عبر fal.ai لـ DeepSeek Harness، الإصدار v0.2.0
 
-**اللغات:** [English](README.md) · [中文](README.zh.md) · [Español](README.es.md) · **العربية** · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+<p align="center">
+  <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm version" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/stars/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&logo=github&label=Stars" alt="Stars" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=License" alt="License: MIT" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/last-commit/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=Last%20commit" alt="Last commit" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/badge/DSH%20Plugin-🎨%20imagegen-10B981?style=for-the-badge&logoColor=white" alt="DSH plugin" /></a>
+</p>
 
-توليد صور أصلي عبر [fal.ai](https://fal.ai) لـ DeepSeek Harness (DSH): بطاقة إعدادات ثنائية اللغة لمفتاح FAL_KEY والإعدادات الافتراضية، بالإضافة إلى أدوات وكيل تتحدث بروتوكول fal من البداية إلى النهاية — دون أي بوابة متوافقة مع OpenAI في المنتصف.
+<p align="center">
+  <b>تثبيت بسطر واحد</b>:
+  <code>dsh plugin --profile web add dsh-fal-imagegen</code>
+</p>
+
+<p align="center">
+  <b>اقرأ هذا بـ:</b>
+  <a href="README.md">English</a> ·
+  <a href="README.zh.md">简体中文</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.ja.md">日本語</a> ·
+  <a href="README.ko.md">한국어</a>
+</p>
+
+توليد صور أصلي عبر [fal.ai](https://fal.ai) لـ DeepSeek Harness (DSH): بطاقة إعدادات تتبع لغة DSH، بالإضافة إلى أدوات وكيل تتحدث بروتوكول fal من البداية إلى النهاية — دون أي بوابة متوافقة مع OpenAI في المنتصف.
+
+## جدول المحتويات
+
+- [الميزات](#الميزات)
+- [التوليد غير المتزامن](#التوليد-غير-المتزامن)
+- [الأسماء المستعارة للنماذج](#الأسماء-المستعارة-للنماذج)
+- [الإعدادات](#الإعدادات)
+- [التثبيت](#التثبيت)
+- [التطوير](#التطوير)
+- [مصدر كتالوج السوق](#مصدر-كتالوج-السوق)
+- [القيود](#القيود)
 
 ## الميزات
 

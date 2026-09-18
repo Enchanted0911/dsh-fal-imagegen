@@ -1,8 +1,40 @@
-# dsh-fal-imagegen
+# 🎨 dsh-fal-imagegen — Native fal.ai image generation for DeepSeek Harness, v0.2.0
 
-**Languages:** **English** · [中文](README.zh.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+<p align="center">
+  <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm version" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/stars/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&logo=github&label=Stars" alt="Stars" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=License" alt="License: MIT" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/last-commit/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=Last%20commit" alt="Last commit" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/badge/DSH%20Plugin-🎨%20imagegen-10B981?style=for-the-badge&logoColor=white" alt="DSH plugin" /></a>
+</p>
 
-Native [fal.ai](https://fal.ai) image generation for DeepSeek Harness (DSH): a bilingual settings card for your FAL_KEY and defaults, plus agent tools that speak fal's protocol end-to-end — no OpenAI-compatible gateway in between.
+<p align="center">
+  <b>One-line install</b>:
+  <code>dsh plugin --profile web add dsh-fal-imagegen</code>
+</p>
+
+<p align="center">
+  <b>Read this in:</b>
+  <a href="README.zh.md">简体中文</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.ar.md">العربية</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.ja.md">日本語</a> ·
+  <a href="README.ko.md">한국어</a>
+</p>
+
+Native [fal.ai](https://fal.ai) image generation for DeepSeek Harness (DSH): a settings card that follows DSH's language, plus agent tools that speak fal's protocol end-to-end — no OpenAI-compatible gateway in between.
+
+## Table of Contents
+
+- [Features](#features)
+- [Async generation](#async-generation)
+- [Model aliases](#model-aliases)
+- [Configuration](#configuration)
+- [Installation](#installation)
+- [Development](#development)
+- [Marketplace catalog source](#marketplace-catalog-source)
+- [Limitations](#limitations)
 
 ## Features
 

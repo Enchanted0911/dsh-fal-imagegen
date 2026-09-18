@@ -1,8 +1,40 @@
-# dsh-fal-imagegen
+# 🎨 dsh-fal-imagegen — DeepSeek Harness 原生 fal.ai 生图插件，v0.2.0
 
-**语言：** [English](README.md) · **中文** · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · [日本語](README.ja.md) · [한국어](README.ko.md)
+<p align="center">
+  <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm 版本" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/stars/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&logo=github&label=Stars" alt="Stars" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=License" alt="License: MIT" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/last-commit/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=Last%20commit" alt="最近提交" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/badge/DSH%20Plugin-🎨%20生图-10B981?style=for-the-badge&logoColor=white" alt="DSH 插件" /></a>
+</p>
 
-面向 DeepSeek Harness (DSH) 的 [fal.ai](https://fal.ai) 原生生图插件：一张中英双语「fal 生图」设置卡片 + 四个 Agent 工具，端到端直连 fal 协议，中间不经过任何 OpenAI 兼容网关。
+<p align="center">
+  <b>一键安装</b>：
+  <code>dsh plugin --profile web add dsh-fal-imagegen</code>
+</p>
+
+<p align="center">
+  <b>其他语言：</b>
+  <a href="README.md">English</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.ar.md">العربية</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.ja.md">日本語</a> ·
+  <a href="README.ko.md">한국어</a>
+</p>
+
+面向 DeepSeek Harness (DSH) 的 [fal.ai](https://fal.ai) 原生生图插件：一张跟随 DSH 语言的「fal 生图」设置卡片 + 四个 Agent 工具，端到端直连 fal 协议，中间不经过任何 OpenAI 兼容网关。
+
+## 目录
+
+- [能力](#能力)
+- [异步生图流程](#异步生图流程)
+- [内置别名](#内置别名)
+- [配置](#配置)
+- [安装](#安装)
+- [开发与自测](#开发与自测)
+- [插件市场目录源](#插件市场目录源)
+- [已知限制](#已知限制)
 
 ## 能力
 
