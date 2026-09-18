@@ -1,8 +1,40 @@
-# dsh-fal-imagegen
+# 🎨 dsh-fal-imagegen — DeepSeek Harness 向け fal.ai ネイティブ画像生成プラグイン，v0.2.0
 
-**言語:** [English](README.md) · [中文](README.zh.md) · [Español](README.es.md) · [العربية](README.ar.md) · [Français](README.fr.md) · **日本語** · [한국어](README.ko.md)
+<p align="center">
+  <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm version" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/stars/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&logo=github&label=Stars" alt="Stars" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen/blob/main/LICENSE"><img src="https://img.shields.io/github/license/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=License" alt="License: MIT" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/github/last-commit/Enchanted0911/dsh-fal-imagegen?style=for-the-badge&label=Last%20commit" alt="Last commit" /></a>
+  <a href="https://github.com/Enchanted0911/dsh-fal-imagegen"><img src="https://img.shields.io/badge/DSH%20Plugin-🎨%20imagegen-10B981?style=for-the-badge&logoColor=white" alt="DSH plugin" /></a>
+</p>
 
-DeepSeek Harness (DSH) 向けの [fal.ai](https://fal.ai) ネイティブ画像生成プラグイン：FAL_KEY とデフォルト設定のためのバイリンガル設定カードと、fal のプロトコルをエンドツーエンドで話すエージェントツールを提供します — OpenAI 互換ゲートウェイは一切挟みません。
+<p align="center">
+  <b>ワンラインインストール</b>：
+  <code>dsh plugin --profile web add dsh-fal-imagegen</code>
+</p>
+
+<p align="center">
+  <b>他の言語：</b>
+  <a href="README.md">English</a> ·
+  <a href="README.zh.md">简体中文</a> ·
+  <a href="README.es.md">Español</a> ·
+  <a href="README.ar.md">العربية</a> ·
+  <a href="README.fr.md">Français</a> ·
+  <a href="README.ko.md">한국어</a>
+</p>
+
+DeepSeek Harness (DSH) 向けの [fal.ai](https://fal.ai) ネイティブ画像生成プラグイン：DSH の言語に追従する設定カードと、fal のプロトコルをエンドツーエンドで話すエージェントツールを提供します — OpenAI 互換ゲートウェイは一切挟みません。
+
+## 目次
+
+- [主な機能](#主な機能)
+- [非同期生成の流れ](#非同期生成の流れ)
+- [モデルエイリアス](#モデルエイリアス)
+- [設定](#設定)
+- [インストール](#インストール)
+- [開発](#開発)
+- [マーケットプレイスカタログソース](#マーケットプレイスカタログソース)
+- [既知の制限](#既知の制限)
 
 ## 主な機能
 
