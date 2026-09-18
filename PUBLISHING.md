@@ -160,8 +160,8 @@ url: https://github.com/Enchanted0911/dsh-fal-imagegen
 name: Enchanted0911/dsh-fal-imagegen
 category: tools
 description:
-  en: 'fal.ai-native image generation for DeepSeek Harness: a FAL_KEY settings card plus the fal_generate_image / fal_edit_image agent tools that call queue.fal.run directly.'
-  zh: 'fal.ai 原生生图插件：FAL_KEY 设置卡片 + fal_generate_image / fal_edit_image Agent 工具，直连 queue.fal.run。'
+  en: 'fal.ai-native image generation for DeepSeek Harness: an async-first fal_generate_image with a fal_get_image_task background-task API, plus fal_edit_image and fal_list_image_models, and a settings card that follows the DSH language.'
+  zh: 'fal.ai 原生生图插件：异步 fal_generate_image + fal_get_image_task 后台任务查询 + fal_edit_image / fal_list_image_models，设置卡片跟随 DSH 语言。'
 ```
 
 不要手改它的 README（脚本生成），一个 PR 最多 3 条。想加截图：仓库根放 `screenshots.json` 列 1-8 张本地路径即可。

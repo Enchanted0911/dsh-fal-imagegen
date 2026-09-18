@@ -1,11 +1,12 @@
 # Awesome DSH Plugin 投稿条目（备用）
-# 用法：明天（2026-09-18 07:54Z 之后，仓库满 24 小时）fork
-#   https://github.com/awesome-dsh-plugin/awesome-dsh-plugin
-# 添加这一个文件 data/plugins/Enchanted0911__dsh-fal-imagegen.yml，然后提 PR。
+# 用法：仓库已满 24 小时（门槛已过，2026-09-18 07:54Z 起）：
+#   1. fork https://github.com/awesome-dsh-plugin/awesome-dsh-plugin
+#   2. 添加这一个文件 data/plugins/Enchanted0911__dsh-fal-imagegen.yml
+#   3. 提 PR（一个 PR 最多 3 条）
 # 规则硬性要求见 awesome-dsh-plugin 仓库的 contributing.md：
 #   - 一个插件一个 YAML；README 由脚本生成，禁止手改
 #   - dsh.bundle 必须在 package.json（✓ 已有）
-#   - 仓库 ≥1 天（CI 自动查）
+#   - 仓库 ≥1 天（CI 自动查，✓ 已过）
 #   - 已加 dsh-plugin topic（✓）
 #   - 描述必须与代码事实一致、以句号结尾、不含营销词
 # CI 通过只是前置；维护者会读代码核对描述。分类选 closest，不贴切会被维护者直接改掉。
@@ -14,5 +15,5 @@ url: https://github.com/Enchanted0911/dsh-fal-imagegen
 name: Enchanted0911/dsh-fal-imagegen
 category: tools
 description:
-  en: 'fal.ai-native image generation for DeepSeek Harness: a FAL_KEY settings card plus the fal_generate_image / fal_edit_image agent tools that call queue.fal.run directly.'
-  zh: 'fal.ai 原生生图插件：FAL_KEY 设置卡片 + fal_generate_image / fal_edit_image Agent 工具，直连 queue.fal.run。'
+  en: 'fal.ai-native image generation for DeepSeek Harness: an async-first fal_generate_image with a fal_get_image_task background-task API, plus fal_edit_image and fal_list_image_models, and a settings card that follows the DSH language.'
+  zh: 'fal.ai 原生生图插件：异步 fal_generate_image + fal_get_image_task 后台任务查询 + fal_edit_image / fal_list_image_models，设置卡片跟随 DSH 语言。'
