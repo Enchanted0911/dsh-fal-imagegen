@@ -122,7 +122,7 @@ git clone https://github.com/Enchanted0911/dsh-fal-imagegen
 # 프로필에 link: 하세요(의존성 + dsh.profile.bundles 항목) → DSH Desktop 재시작
 ```
 
-런타임 패키지(`@deepseek-ai/dsh-tools`, `dsh-attachment`, `dsh-settings`, `schemastery`)는 하니스에서 제공됩니다. 소스 트리의 `node_modules/`는 오프라인 테스트를 하니스 밖에서 돌리기 위해서만 존재합니다.
+런타임 패키지(`@deepseek-ai/dsh-tools`, `dsh-attachment`, `dsh-settings`, `@deepseek-ai/schemastery`)는 하니스에서 제공됩니다. 소스 트리의 `node_modules/`는 오프라인 테스트를 하니스 밖에서 돌리기 위해서만 존재합니다.
 
 ## 개발
 

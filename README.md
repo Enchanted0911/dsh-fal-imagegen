@@ -122,7 +122,7 @@ git clone https://github.com/Enchanted0911/dsh-fal-imagegen
 # link: it into a profile — dependency + dsh.profile.bundles entry — then restart DSH Desktop
 ```
 
-The runtime packages (`@deepseek-ai/dsh-tools`, `dsh-attachment`, `dsh-settings`, `schemastery`) come from the harness; the `node_modules/` in this source tree only exists so the offline tests can load outside the harness.
+The runtime packages (`@deepseek-ai/dsh-tools`, `dsh-attachment`, `dsh-settings`, `@deepseek-ai/schemastery`) come from the harness; the `node_modules/` in this source tree only exists so the offline tests can load outside the harness.
 
 ## Development
 

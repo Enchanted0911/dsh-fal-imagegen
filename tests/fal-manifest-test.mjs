@@ -43,7 +43,17 @@ check(client.includes(`id: '${pkg.name}'`), 'client wrapper id matches the packa
 check(client.includes('__ModuleLoader__.load'), 'client bundle registers through the module loader')
 
 // Host half must stay importable without the browser globals.
-check(!/window\./.test(readFileSync(join(root, pkg.main), 'utf8')), 'host half never touches window')
+const host = readFileSync(join(root, pkg.main), 'utf8')
+check(!/window\./.test(host), 'host half never touches window')
+
+// DSH 2.x renamed schemastery to a scoped package; the host half resolves it
+// through one compatibility module that also carries the DSH 1.x fallback.
+check(host.includes("from './schemastery.js'"), 'host half resolves schemastery through the compatibility shim')
+check(existsSync(join(root, 'lib', 'schemastery.js')), 'schemastery compatibility shim exists')
+const shim = readFileSync(join(root, 'lib', 'schemastery.js'), 'utf8')
+check(shim.includes("'@deepseek-ai/schemastery'"), 'shim probes the DSH 2.x scoped package first')
+check(shim.includes("'schemastery'"), 'shim keeps the DSH 1.x bare package fallback')
+check(pkg.peerDependencies?.['@deepseek-ai/schemastery'] !== undefined, 'manifest declares the scoped schemastery peer')
 
 console.log(failures.length === 0 ? '\nMANIFEST TEST PASSED' : `\nMANIFEST TEST FAILED (${failures.length})`)
 process.exitCode = failures.length === 0 ? 0 : 1

@@ -122,7 +122,7 @@ git clone https://github.com/Enchanted0911/dsh-fal-imagegen
 # プロファイルに link: する（依存関係 + dsh.profile.bundles エントリ）→ DSH Desktop を再起動
 ```
 
-ランタイムパッケージ（`@deepseek-ai/dsh-tools`、`dsh-attachment`、`dsh-settings`、`schemastery`）はハーネスから供給されます。ソースツリーの `node_modules/` はオフラインテストをハーネス外で動かすためだけに存在します。
+ランタイムパッケージ（`@deepseek-ai/dsh-tools`、`dsh-attachment`、`dsh-settings`、`@deepseek-ai/schemastery`）はハーネスから供給されます。ソースツリーの `node_modules/` はオフラインテストをハーネス外で動かすためだけに存在します。
 
 ## 開発
 

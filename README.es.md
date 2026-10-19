@@ -122,7 +122,7 @@ git clone https://github.com/Enchanted0911/dsh-fal-imagegen
 # vincúlalo a un perfil — dependencia + entrada dsh.profile.bundles — y reinicia DSH Desktop
 ```
 
-Los paquetes de ejecución (`@deepseek-ai/dsh-tools`, `dsh-attachment`, `dsh-settings`, `schemastery`) vienen del harness; el `node_modules/` de este árbol solo existe para que las pruebas offline carguen fuera del harness.
+Los paquetes de ejecución (`@deepseek-ai/dsh-tools`, `dsh-attachment`, `dsh-settings`, `@deepseek-ai/schemastery`) vienen del harness; el `node_modules/` de este árbol solo existe para que las pruebas offline carguen fuera del harness.
 
 ## Desarrollo
 

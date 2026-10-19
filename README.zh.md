@@ -125,7 +125,7 @@ git clone https://github.com/Enchanted0911/dsh-fal-imagegen
 # 把仓库 link: 进一个 profile（依赖 + dsh.profile.bundles），然后重启 DSH Desktop
 ```
 
-运行时依赖（`@deepseek-ai/dsh-tools`、`dsh-attachment`、`dsh-settings`、`schemastery`）由宿主提供；
+运行时依赖（`@deepseek-ai/dsh-tools`、`dsh-attachment`、`dsh-settings`、`@deepseek-ai/schemastery`）由宿主提供；
 源码树里的 `node_modules/` 只为了让离线测试能在宿主之外加载本包。
 
 ## 开发与自测

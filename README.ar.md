@@ -122,7 +122,7 @@ git clone https://github.com/Enchanted0911/dsh-fal-imagegen
 # اربطه بملف شخصي — تبعية + إدخال dsh.profile.bundles — ثم أعد تشغيل DSH Desktop
 ```
 
-حزم التشغيل (`@deepseek-ai/dsh-tools`، `dsh-attachment`، `dsh-settings`، `schemastery`) تأتي من المضيف؛ ومجلد `node_modules/` في شجرة المصدر موجود فقط لتحميل الاختبارات دون اتصال خارج المضيف.
+حزم التشغيل (`@deepseek-ai/dsh-tools`، `dsh-attachment`، `dsh-settings`، `@deepseek-ai/schemastery`) تأتي من المضيف؛ ومجلد `node_modules/` في شجرة المصدر موجود فقط لتحميل الاختبارات دون اتصال خارج المضيف.
 
 ## التطوير
 
