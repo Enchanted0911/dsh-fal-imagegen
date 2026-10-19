@@ -150,7 +150,7 @@ Effect of source changes in a linked install: browser-half (`lib/client.js`) cha
 The DSH community market has no default source; this repository ships a v1-contract catalog source under `catalog/` (see `catalog/entry.mjs`). Deploy the Cloudflare Pages form and register the manifest URL in Settings → Plugins → market → Sources:
 
 ```sh
-npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog --branch production
 # then add https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json as a source
 ```
 

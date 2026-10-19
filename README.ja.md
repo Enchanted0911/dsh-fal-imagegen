@@ -150,7 +150,7 @@ FAL_KEY='<key_id>:<key_secret>' node tests/fal-smoke.mjs       # fal クライ�
 DSH コミュニティマーケットにはデフォルトのソースがありません。このリポジトリは `catalog/`（データソースは `catalog/entry.mjs`）に v1 契約準拠のカタログソースを同梱しています。Cloudflare Pages 版をデプロイし、設定 → プラグイン → マーケット → ソース にマニフェスト URL を登録してください：
 
 ```sh
-npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog --branch production
 # その後 https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json をソースとして追加
 ```
 

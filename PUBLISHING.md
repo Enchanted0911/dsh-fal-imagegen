@@ -99,12 +99,16 @@ GitHub 用户名已确认：**Enchanted0911**。`package.json` 与 `catalog/entr
 
 ```sh
 cd ~/dsh-fal-imagegen
-npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog --branch production
 # 部署后将输出 https://dsh-fal-imagegen-catalog.pages.dev
 curl -s https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json | head
 curl -s -o /dev/null -w '%{content_type}\n' https://dsh-fal-imagegen-catalog.pages.dev/v1/plugins
 # 期望 application/json
 ```
+
+> 该 Pages 项目的生产分支是 `production`；必须带 `--branch production`。少了它只会生成
+> Preview 部署（`*.dsh-fal-imagegen-catalog.pages.dev` 别名可用，但生产域名仍是 404）。
+
 然后在 DSH「设置 → 插件市场 → 来源」添加 `https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json`。
 
 Worker 形态（国际市场可达时）：

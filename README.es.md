@@ -150,7 +150,7 @@ Efecto de los cambios en una instalación vinculada: la mitad del navegador (`li
 El mercado comunitario de DSH no tiene fuente por defecto; este repositorio incluye una fuente de catálogo conforme al contrato v1 bajo `catalog/` (véase `catalog/entry.mjs`). Despliega la forma Cloudflare Pages y registra la URL del manifiesto en Configuración → Plugins → mercado → Fuentes:
 
 ```sh
-npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog --branch production
 # luego añade https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json como fuente
 ```
 

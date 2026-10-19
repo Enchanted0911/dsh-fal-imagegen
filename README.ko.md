@@ -150,7 +150,7 @@ FAL_KEY='<key_id>:<key_secret>' node tests/fal-smoke.mjs       # fal 클라이�
 DSH 커뮤니티 마켓에는 기본 소스가 없습니다. 이 저장소는 `catalog/`(데이터 소스는 `catalog/entry.mjs`)에 v1 계약을 따르는 카탈로그 소스를 포함합니다. Cloudflare Pages 형태를 배포하고 설정 → 플러그인 → 마켓 → 소스에 매니페스트 URL을 등록하세요:
 
 ```sh
-npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog --branch production
 # 그런 다음 https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json을 소스로 추가
 ```
 

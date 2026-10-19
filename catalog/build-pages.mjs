@@ -20,7 +20,7 @@
  * is the form that keeps working on current wrangler versions. Deploying is
  * still the same command:
  *
- *   npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+ *   npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog --branch production
  * → https://dsh-fal-imagegen-catalog.pages.dev
  */
 import { mkdirSync, readFileSync, writeFileSync } from 'node:fs'

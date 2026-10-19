@@ -156,7 +156,7 @@ DSH 社区市场没有默认来源；本仓库自带一个符合 v1 契约的目
 `catalog/entry.mjs`）。部署 Cloudflare Pages 形态，然后在「设置 → 插件 → 插件市场 → 来源」添加：
 
 ```sh
-npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog --branch production
 # 然后添加 https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json 作为来源
 ```
 

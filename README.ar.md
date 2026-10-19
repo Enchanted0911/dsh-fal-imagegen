@@ -150,7 +150,7 @@ FAL_KEY='<key_id>:<key_secret>' node tests/fal-smoke.mjs       # عميل fal ف
 سوق مجتمع DSH بلا مصدر افتراضي؛ هذا المستودع يحمل مصدر كتالوج مطابقًا لعقد v1 تحت `catalog/` (انظر `catalog/entry.mjs`). انشر صيغة Cloudflare Pages وسجّل عنوان البيان في الإعدادات ← الإضافات ← السوق ← المصادر:
 
 ```sh
-npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog --branch production
 # ثم أضف https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json كمصدر
 ```
 

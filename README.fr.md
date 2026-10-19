@@ -150,7 +150,7 @@ Effet des modifications dans une installation liée : les changements de la moit
 Le marché communautaire DSH n'a pas de source par défaut ; ce dépôt fournit une source de catalogue conforme au contrat v1 sous `catalog/` (voir `catalog/entry.mjs`). Déployez la forme Cloudflare Pages et enregistrez l'URL du manifeste dans Réglages → Plugins → marché → Sources :
 
 ```sh
-npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog
+npx wrangler pages deploy catalog/pages --project-name dsh-fal-imagegen-catalog --branch production
 # puis ajoutez https://dsh-fal-imagegen-catalog.pages.dev/catalog-source.json comme source
 ```
 
