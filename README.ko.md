@@ -1,4 +1,4 @@
-# 🎨 dsh-fal-imagegen — DeepSeek Harness용 fal.ai 네이티브 이미지 생성 플러그인, v0.2.0
+# 🎨 dsh-fal-imagegen — DeepSeek Harness용 fal.ai 네이티브 이미지 생성 플러그인, v0.2.1
 
 <p align="center">
   <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm version" /></a>
@@ -97,7 +97,7 @@ DeepSeek Harness(DSH)용 [fal.ai](https://fal.ai) 네이티브 이미지 생성 
 
 ### npm(권장)
 
-`dsh-fal-imagegen@0.2.0`이 게시되어 있습니다:
+`dsh-fal-imagegen@0.2.1`이 게시되어 있습니다:
 
 ```sh
 # CLI 관리 프로필(web / headless / 커스텀):

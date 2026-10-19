@@ -1,4 +1,4 @@
-# 🎨 dsh-fal-imagegen — توليد صور أصلي عبر fal.ai لـ DeepSeek Harness، الإصدار v0.2.0
+# 🎨 dsh-fal-imagegen — توليد صور أصلي عبر fal.ai لـ DeepSeek Harness، الإصدار v0.2.1
 
 <p align="center">
   <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm version" /></a>
@@ -97,7 +97,7 @@
 
 ### npm (موصى به)
 
-`dsh-fal-imagegen@0.2.0` منشور:
+`dsh-fal-imagegen@0.2.1` منشور:
 
 ```sh
 # الملفات الشخصية المُدارة عبر CLI (web / headless / مخصص):

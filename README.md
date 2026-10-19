@@ -1,4 +1,4 @@
-# 🎨 dsh-fal-imagegen — Native fal.ai image generation for DeepSeek Harness, v0.2.0
+# 🎨 dsh-fal-imagegen — Native fal.ai image generation for DeepSeek Harness, v0.2.1
 
 <p align="center">
   <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm version" /></a>
@@ -97,7 +97,7 @@ The card edits the same settings as the `dsh-fal-imagegen:` section of `~/.dsh/s
 
 ### npm (recommended)
 
-`dsh-fal-imagegen@0.2.0` is published:
+`dsh-fal-imagegen@0.2.1` is published:
 
 ```sh
 # CLI-managed profiles (web / headless / custom):

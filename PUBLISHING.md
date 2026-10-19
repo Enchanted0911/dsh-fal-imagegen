@@ -53,7 +53,7 @@ cd ~/dsh-fal-imagegen
 
 ```sh
 pnpm publish --no-git-checks          # publishConfig 已指定 public + npmjs
-npm view dsh-fal-imagegen version     # 期望输出 0.2.0
+npm view dsh-fal-imagegen version     # 期望输出 0.2.1
 ```
 
 包名 `dsh-fal-imagegen` 目前**未被占用**（2026-09-17 查 registry 返回 404）。若你想放到 scope 下

@@ -1,4 +1,4 @@
-# 🎨 dsh-fal-imagegen — DeepSeek Harness 向け fal.ai ネイティブ画像生成プラグイン，v0.2.0
+# 🎨 dsh-fal-imagegen — DeepSeek Harness 向け fal.ai ネイティブ画像生成プラグイン，v0.2.1
 
 <p align="center">
   <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm version" /></a>
@@ -97,7 +97,7 @@ DeepSeek Harness (DSH) 向けの [fal.ai](https://fal.ai) ネイティブ画像�
 
 ### npm（推奨）
 
-`dsh-fal-imagegen@0.2.0` が公開されています：
+`dsh-fal-imagegen@0.2.1` が公開されています：
 
 ```sh
 # CLI 管理プロファイル（web / headless / カスタム）：

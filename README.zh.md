@@ -1,4 +1,4 @@
-# 🎨 dsh-fal-imagegen — DeepSeek Harness 原生 fal.ai 生图插件，v0.2.0
+# 🎨 dsh-fal-imagegen — DeepSeek Harness 原生 fal.ai 生图插件，v0.2.1
 
 <p align="center">
   <a href="https://www.npmjs.com/package/dsh-fal-imagegen"><img src="https://img.shields.io/npm/v/dsh-fal-imagegen?style=for-the-badge&logo=npm&label=npm" alt="npm 版本" /></a>
@@ -97,7 +97,7 @@
 
 ### 从 npm 装（推荐，已上架）
 
-`dsh-fal-imagegen@0.2.0` 已发布到 npm：
+`dsh-fal-imagegen@0.2.1` 已发布到 npm：
 
 ```sh
 # 由 dsh CLI 管理的 profile（web / headless / 自定义）：
